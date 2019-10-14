@@ -4,7 +4,7 @@ import "blackPavlin/http-rest-api.git/internal/app/store"
 
 // Config ...
 type Config struct {
-	BindAddr string `toml:"bond_addr"`
+	BindAddr string `toml:"bind_addr"`
 	LogLevel string `toml:"log_level"`
 	Store    *store.Config
 }
