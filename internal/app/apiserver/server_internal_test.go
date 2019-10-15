@@ -48,8 +48,8 @@ func TestServer_HandleUsersCreate(t *testing.T) {
 			b := &bytes.Buffer{}
 			json.NewEncoder(b).Encode(tc.payload)
 			req, _ := http.NewRequest(http.MethodPost, "/users", b)
-			s.serveHTTP(rec, req)
-			assert.Equal(t, tc.expectedCode, http.StatusOK)
+			s.ServeHTTP(rec, req)
+			assert.Equal(t, tc.expectedCode, rec.Code)
 		})
 	}
 }
@@ -101,8 +101,8 @@ func TestServer_HandleSessionCreate(t *testing.T) {
 			b := &bytes.Buffer{}
 			json.NewEncoder(b).Encode(tc.payload)
 			req, _ := http.NewRequest(http.MethodPost, "/sessions", b)
-			s.serveHTTP(rec, req)
-			assert.Equal(t, tc.expectedCode, http.StatusOK)
+			s.ServeHTTP(rec, req)
+			assert.Equal(t, tc.expectedCode, rec.Code)
 		})
 	}
 }

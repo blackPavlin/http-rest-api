@@ -40,7 +40,7 @@ func newServer(store store.Store, sessionStore sessions.Store) *server {
 	return s
 }
 
-func (s *server) serveHTTP(w http.ResponseWriter, r *http.Request) {
+func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	s.router.ServeHTTP(w, r)
 }
 
@@ -51,8 +51,8 @@ func (s *server) configureRouter() {
 
 func (s *server) handleUsersCreate() http.HandlerFunc {
 	type request struct {
-		Email    string `json"email"`
-		Password string `json"password"`
+		Email    string `json:"email"`
+		Password string `json:"password"`
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -78,8 +78,8 @@ func (s *server) handleUsersCreate() http.HandlerFunc {
 
 func (s *server) handleSessionCreate() http.HandlerFunc {
 	type request struct {
-		Email    string `json"email"`
-		Password string `json"password"`
+		Email    string `json:"email"`
+		Password string `json:"password"`
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -102,7 +102,7 @@ func (s *server) handleSessionCreate() http.HandlerFunc {
 		}
 
 		session.Values["user_id"] = u.ID
-		if err := s.sessionStore.Save(r, w, session); {
+		if err := s.sessionStore.Save(r, w, session); err != nil {
 			s.error(w, r, http.StatusInternalServerError, err)
 			return
 		}
